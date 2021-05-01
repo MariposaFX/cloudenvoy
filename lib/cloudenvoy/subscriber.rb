@@ -66,7 +66,9 @@ module Cloudenvoy
     # @return [Any] The subscriber processing return value.
     #
     def self.execute_from_descriptor(input_payload)
+      puts "input_payload: #{input_payload}"
       message = Message.from_descriptor(input_payload)
+      puts "msg subscriber: #{message.subscriber}"
       subscriber = message.subscriber || raise(InvalidSubscriberError)
       subscriber.execute
     end
