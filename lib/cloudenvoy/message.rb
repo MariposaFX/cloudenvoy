@@ -60,13 +60,15 @@ module Cloudenvoy
     # @return [Subscriber] The instantiated subscriber.
     #
     def subscriber
+      puts "subscriber: #{sub_uri}"
+      temp = "dummy_subscriber"#.split('/').last.split('.').last(2)
       @subscriber ||= begin
-        return nil unless sub_uri && (klass = Subscriber.from_sub_uri(sub_uri))
+        return nil unless temp && (klass = Subscriber.from_sub_uri(temp))
 
         klass.new(message: self)
       end
     end
-
+    #projects/acc-proto-quick/subscriptions/eventarc-us-west1-conversation_changes-sub-709
     #
     # Return a hash description of the message.
     #
