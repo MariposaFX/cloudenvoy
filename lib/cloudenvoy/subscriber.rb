@@ -132,6 +132,7 @@ module Cloudenvoy
           topic_name = t[:name] || t['name']
           sub_opts = t.reject { |k, _| k.to_sym == :name }
           PubSubClient.upsert_subscription(topic_name, subscription_name(topic_name), sub_opts)
+          #TODO(Malek) - need to change this to eventarc trigger
         end
       end
     end

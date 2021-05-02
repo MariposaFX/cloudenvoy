@@ -61,7 +61,9 @@ module Cloudenvoy
         ps_topic = backend.topic(topic, skip_lookup: true)
 
         # Publish the message
-        ps_msg = ps_topic.publish(payload.to_json, metadata.to_h)
+        metadata_hash = metadata.to_h
+        metadata_hash[:topic] = topic
+        ps_msg = ps_topic.publish(payload.to_json, metadata_hash)
 
         # Return formatted message
         Message.new(
