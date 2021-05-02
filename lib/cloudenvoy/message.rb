@@ -49,9 +49,10 @@ module Cloudenvoy
     #
     def topic
       return @topic if @topic
-      return nil unless sub_uri
-
-      Subscriber.parse_sub_uri(sub_uri)[1]
+      #return nil unless sub_uri
+      return nil unless metadata
+      #Subscriber.parse_sub_uri(sub_uri)[1]
+      metadata.dig('topic')
     end
 
     #
@@ -60,10 +61,10 @@ module Cloudenvoy
     # @return [Subscriber] The instantiated subscriber.
     #
     def subscriber
-      puts "subscriber: #{sub_uri}"
-      temp = "dummy_subscriber"#.split('/').last.split('.').last(2)
+      puts "subscriber: #{topic}"
+
       @subscriber ||= begin
-        return nil unless temp && (klass = Subscriber.from_sub_uri(temp))
+        return nil unless topic && (klass = Subscriber.from_topic(topic))
 
         klass.new(message: self)
       end

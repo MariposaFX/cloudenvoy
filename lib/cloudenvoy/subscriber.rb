@@ -45,6 +45,14 @@ module Cloudenvoy
       sub_klass.include?(self) ? sub_klass : nil
     end
 
+    def self.from_topic(topic)
+      klass_name = "#{topic}_subscriber"
+
+      # Check that subscriber class is a valid subscriber
+      sub_klass = Object.const_get(klass_name.camelize)
+
+      sub_klass.include?(self) ? sub_klass : nil
+    end
     #
     # Parse the subscription name and return the subscriber name and topic.
     #
